@@ -26,7 +26,7 @@ export default {
                         type: 'DirectionalLight',
                         position: { x: 1, y: 1, z: 1 },
                         color: 0xffffff,
-                        intensity: 0.8
+                        intensity: 0.9
                     }
                 ]
             }
@@ -97,13 +97,12 @@ export default {
             }
 
             const onError = err => {
-
                 this.$emit( 'on-error', err );
 
             }
 
+            //if we included an mtl file
             if ( this.mtl ) {
-
                 let mtlPath = this.mtlPath;
                 let mtlSrc = this.mtl;
 
@@ -115,7 +114,6 @@ export default {
                         mtlPath = result[ 1 ];
                         mtlSrc = result[ 2 ];
                     }
-
                 }
 
                 if ( mtlPath ) {
@@ -123,19 +121,13 @@ export default {
                 }
 
                 this.mtlLoader.load( mtlSrc, materials => {
-
                     materials.preload();
-
                     this.loader.setMaterials( materials );
-
                     this.loader.load( this.src, onLoad, onProgress, onError );
-
                 }, () => {}, onError );
 
             } else {
-
                 this.loader.load( this.src, onLoad, onProgress, onError );
-
             }
 
         },
